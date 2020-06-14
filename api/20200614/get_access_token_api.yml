@@ -1,0 +1,12 @@
+name: "get access_token"
+base_url: "https://api.weixin.qq.com"
+verify: false
+request:
+  url: "/cgi-bin/token"
+  method: GET
+  params:
+    grant_type: "client_credential"
+    appid: "wx5189359b0e0ddd89"
+    secret: "11d4de7719a2276becf27ab573263061"
+validate:
+  - eq: ["status_code", 200]

@@ -1,0 +1,9 @@
+config:
+    name: 百度搜索参数化
+
+testcases:
+    - name: 百度搜索
+      testcase: testcases/20200614/baidu_search_random_case.yml
+      parameters:
+        searchword: ${get_random_mobilephone(10)} # 随机手机号
+#        searchword: ${get_random_id(10)}  # 随机身份证号

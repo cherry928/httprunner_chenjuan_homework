@@ -1,0 +1,8 @@
+config:
+    name: 论坛回复参数化
+
+testcases:
+    - name: 论坛回复
+      testcase: testcases/20200614/phpwind_reply_case.yml
+      parameters:
+        strcontent: ${get_str_random()}

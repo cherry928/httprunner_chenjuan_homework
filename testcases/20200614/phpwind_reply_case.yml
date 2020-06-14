@@ -1,0 +1,73 @@
+# 利用httprunner实现对一个帖子使用随机字符串回复
+- config:
+    name: 论坛回复
+    base_url: http://47.107.178.45
+
+- test:
+    name: 打开论坛首页
+    request:
+      method: GET
+      url: /phpwind/
+    extract:
+      - token_value: name="csrf_token" value="(.+?)"/>
+    validate:
+      - eq: ["status_code", 200]
+
+- test:
+    name: 登录
+    request:
+      method: POST
+      url: /phpwind/index.php
+      headers:
+        Accept: application/json, text/javascript, */*; q=0.01
+        X-Requested-With: XMLHttpRequest
+        User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61
+        Accept-Encoding: gzip, deflate
+        Accept-Language: zh-CN,zh;q=0.9
+      params:
+        m: u
+        c: login
+        a: dologin
+      data:
+        username: cherry_02
+        password: 123456
+        csrf_token: $token_value
+    extract:
+      - loginid: _statu=(.+?)"
+    validate:
+      - eq: ["status_code", 200]
+
+- test:
+    name: 登录之后跳转  # 不跳转发帖是游客，这样会发帖失败
+    request:
+      method: GET
+      url: /phpwind/index.php
+      params:
+        m: u
+        c: login
+        a: welcome
+        _statu: $loginid
+    validate:
+      - eq: ["status_code", 200]
+
+- test:
+    name: 回复
+    request:
+      method: POST
+      url: /phpwind/index.php
+      headers:
+        Accept: application/json, text/javascript, */*; q=0.01
+        X-Requested-With: XMLHttpRequest
+        User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61
+        Accept-Encoding: gzip, deflate
+        Accept-Language: zh-CN,zh;q=0.9
+      params:
+        c: post
+        a: doreply
+        _getHtml: 1
+      data:
+        atc_content: $strcontent
+        tid: 74713
+        csrf_token: $token_value
+    validate:
+      - eq: ["status_code", 200]

@@ -1,0 +1,9 @@
+# 测试套件
+config:
+    name: 测试套件
+
+testcases:
+    - name: get_access_token_case
+      testcase: testcases/20200614/get_access_token_case.yml
+    - name: delete_user_tag_case
+      testcase: testcases/20200614/delete_user_tag_case.yml

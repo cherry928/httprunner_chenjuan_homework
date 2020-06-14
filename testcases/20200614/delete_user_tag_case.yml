@@ -1,0 +1,14 @@
+# testcases/20200614/get_access_token_case.yml的tokenid传递到这里
+- config:
+    name: 验证能否正确获取token
+
+- test:
+    name: 获取testcases/20200614/get_access_token_case.yml用例的tokenid
+    testcase: testcases/20200614/get_access_token_case.yml
+
+- test:
+    name: delete_tag
+    api: api/20200614/delete_user_tag_api.yml
+    variables:
+      tokenid: $tokenid
+      tagid: 106

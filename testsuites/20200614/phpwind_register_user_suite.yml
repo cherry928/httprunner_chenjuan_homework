@@ -1,0 +1,8 @@
+config:
+    name: 论坛注册参数化
+
+testcases:
+    - name: 论坛注册
+      testcase: testcases/20200614/phpwind_register_user_case.yml
+      parameters:
+        username-email: ${P(data/info.csv)} # 用户名 、邮箱

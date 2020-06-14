@@ -1,0 +1,13 @@
+# 测试用例层
+- config:
+    name: 验证能否正确获取token
+    export:
+      - tokenid
+
+- test:
+    name: "step1：执行get access_token接口"
+    api: api/20200614/get_access_token_api.yml
+    extract:
+      - tokenid: content.access_token
+    validate:
+      - eq: [content.expires_in, 7200]

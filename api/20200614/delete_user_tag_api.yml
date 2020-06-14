@@ -1,0 +1,13 @@
+name: "delete user tag"
+base_url: "https://api.weixin.qq.com"
+request:
+  url: "/cgi-bin/tags/delete"
+  method: POST
+  headers:
+    Content-Type: "application/json"
+  params:
+    access_token: $tokenid
+  json:
+    {   "tag":{        "id": $tagid } }
+validate:
+  - eq: ["status_code", 200]

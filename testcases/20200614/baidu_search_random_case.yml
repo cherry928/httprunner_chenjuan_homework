@@ -1,0 +1,19 @@
+# 利用httprunner的debugtalk.py，实现随机手机号和身份证号10个、百度搜索请求的调用
+- config:
+    name: "验证百度搜索是否正确"
+    base_url: "https://www.baidu.com"
+
+- test:
+    name: "百度搜索请求"
+    request:
+      url: "/s"
+      method: GET
+      headers:
+        User-Agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36"
+        Accept: "text/javascript, application/javascript, application/ecmascript, application/x-ecmascript, */*; q=0.01"
+        Accept-Encoding: "gzip, deflate, br"
+        Accept-Language: "zh-CN,zh;q=0.9"
+      params:
+        wd: $searchword
+    validate:
+      - eq: ["status_code", 200]
