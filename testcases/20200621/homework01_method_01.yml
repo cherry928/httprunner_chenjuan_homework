@@ -1,0 +1,19 @@
+- config:
+    name: 验证能否打开主网页
+    base_url: http://www.hnxmxit.com
+    export:
+      - title
+
+- test:
+    name: open hnxmxit mainpage api
+    variables:
+      - temp_except: 新梦想IT教育_软件测试培训_Java培训_Python培训_长沙良心IT教育
+      - except: ${to_iso8859($temp_except)}
+    request:
+      url: /
+      method: GET
+    extract:
+      - title: <title>(.+?)</title>
+    validate:
+      - eq: ["status_code", 200]
+      - eq: [$title, $except]
